@@ -1,0 +1,73 @@
+<view class="page">
+  <!-- <view class="page__hd">
+		<view class="page__title">Flex</view>
+		<view class="page__desc">Flex布局</view>
+	</view> -->
+  <view>
+    <view class="weui-flex">
+      <view class="weui-flex__item" wx:key="id" wx:for="{{users}}">
+        <view class="placeholder">{{item.name}}</view>
+      </view>
+    </view>
+    <view class="weui-flex">
+      <view class="weui-flex__item" wx:key="id" wx:for="{{users}}">
+        <view class="placeholder {{item.score>0?'red':'green'}}">{{item.score}}</view>
+      </view>
+    </view>
+
+    <view class="weui-flex">
+      <view class="weui-flex__item">
+        <button class="weui-btn weui-btn_mini weui-btn_primary list-btn" bindtap="openAddScoreDialog">添加</button>
+      </view>
+      <view class="weui-flex__item">
+        <button class="weui-btn weui-btn_mini weui-btn_warn list-btn" bindtap="resetScore">清空</button>
+      </view>
+    </view>
+
+    <view wx:key="id" wx:for="{{scores}}">
+      <mp-slideview buttons="{{slideButtons}}" icon="{{true}}" bindbuttontap="slideButtonTap" id="{{index}}">
+        <view class="weui-flex">
+          <view class="placeholder">局:{{scores.length-index}}</view>
+          <view class="weui-flex__item" wx:key="id" wx:for="{{item}}">
+            <view class="placeholder {{item.score>0?'red':'green'}}">{{item.score}}</view>
+          </view>
+        </view>
+      </mp-slideview>
+    </view>
+
+    <view class="fadeIn" wx:if="{{show}}">
+      <view class="weui-mask" bindtap="closeAddScoreDialog"></view>
+      <view class="weui-half-screen-dialog">
+        <view class="weui-half-screen-dialog__hd">
+          <view class="weui-half-screen-dialog__hd__side" bindtap="closeAddScoreDialog">
+            <a class="weui-icon-btn">关闭<i class="weui-icon-close-thin"></i></a>
+          </view>
+          <view class="weui-half-screen-dialog__hd__main">
+            <strong class="weui-half-screen-dialog__title">添加</strong>
+            <view class="weui-half-screen-dialog__subtitle">只需填写扣分的用户</view>
+          </view>
+        </view>
+        <view class="weui-half-screen-dialog__bd">
+          <view class="weui-flex">
+            <view class="weui-flex__item" wx:key="id" wx:for="{{users}}">
+              <view class="placeholder">{{item.name}}</view>
+            </view>
+          </view>
+          <view class="weui-flex">
+            <view class="weui-flex__item" wx:key="userId" wx:for="{{score}}">
+              <view class="placeholder">
+                <input type="number" id="score-add-{{index}}}" bindinput="checkAddScore" value="{{item.score}}" disabled="{{item.disable}}"/>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="weui-half-screen-dialog__ft">
+          <view class="weui-half-screen-dialog__btn-area">
+            <a class="weui-btn weui-btn_default" bindtap="openAddScoreDialog">重置</a>
+            <a class="weui-btn weui-btn_primary" bindtap="addScore">添加</a>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

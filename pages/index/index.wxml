@@ -1,0 +1,10 @@
+<view>
+  <navigator url="../score/index">
+    <button class="weui-btn weui-btn_primary">
+      分数计算
+    </button>
+  </navigator>
+  <!-- <view>
+    {{time}}
+  </view> -->
+</view>

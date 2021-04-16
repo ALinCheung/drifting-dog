@@ -1,0 +1,44 @@
+/* pages/score/list/index.wxss */
+.page {
+  background-color: #ffffff;
+  font-size: smaller;
+}
+.placeholder {
+  margin: 5px;
+  padding: 0 10px;
+  text-align: center;
+  background-color: var(--weui-BG-1);
+  height: 2.3em;
+  line-height: 2.3em;
+  color: var(--weui-FG-1)
+}
+.placeholder input{
+  padding-top: 3px;
+}
+.slideview-icon .weui-slideview__btn{
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+}
+.list-btn {
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.green {
+  color: var(--weui-BRAND);
+}
+.red {
+  color: red
+}
+.fadeIn {
+  position: fixed;
+  z-index: 999;
+}
+.fadeIn .weui-half-screen-dialog {
+  padding: 0 5px;
+}
+.fadeIn .weui-half-screen-dialog__hd {
+  padding: 0 10px;
+}

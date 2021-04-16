@@ -1,0 +1,20 @@
+<view wx:for="{{users}}" wx:key="key">
+	<view class="weui-cell weui-cell_input ">
+		<view class="weui-cell__hd">
+			<view class="weui-label rui-justify">
+				<text space="ensp">用户{{index+1}}</text>
+			</view>
+		</view>
+		<input class="weui-input" id="name-{{index+1}}" bindinput="setName" placeholder="请输入用户{{index+1}}名称" value="{{item.name}}"/>
+	</view>
+</view>
+
+<view class="weui-cell">
+	<button class="weui-btn weui-btn_primary" bindtap='addUser' style='width:45%;'>增加用户</button>
+	<button class="weui-btn weui-btn_primary" bindtap='removeUser' style='width:45%;'>
+		删除用户
+	</button>
+</view>
+<view class="weui-cell">
+	<button class="weui-btn weui-btn_primary" bindtap='submit' style='width:100%;'>开始计算</button>
+</view>
