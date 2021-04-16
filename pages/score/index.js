@@ -7,35 +7,15 @@ function User(id, name, score) {
 Page({
   data: {
     usersCount: 4,
-    users: [
-      {
-        id: "1",
-        name: "张文霖",
-        score: 0
-      },
-      {
-        id: "2",
-        name: "黄梓扬",
-        score: 0
-      },
-      {
-        id: "3",
-        name: "苏毅铭",
-        score: 0
-      },
-      {
-        id: "4",
-        name: "钟国标",
-        score: 0
-      }
-    ]
+    users: []
   },
   onLoad(e) {
     // 初始化用户
     let users = this.data.users;
     let usersCount = this.data.usersCount;
     if (users.length < usersCount) {
-      for(var i=0;i<(usersCount - users.length);i++) {
+      let size = usersCount - users.length;
+      for(var i=0;i<size;i++) {
         this.addUser()
       }
     }
@@ -60,6 +40,7 @@ Page({
     let users = this.data.users;
     users[index-1].id = index;
     users[index-1].name = name;
+    users[index-1].score = 0;
     this.setData({
       users: users
     });
@@ -77,7 +58,11 @@ Page({
       return
     }
     for(const user of users) {
-      if (user.id === undefined) {
+      if (user.id === undefined 
+        || user.id == null 
+        || user.id == ''
+        || user.name == null 
+        || user.name == '') {
         wx.showModal({
           title: '提示',
           content: '输入框不能为空',
