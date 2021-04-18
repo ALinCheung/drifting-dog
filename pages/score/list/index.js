@@ -12,7 +12,8 @@ Page({
     users: [],
     score: [],
     scores: [],
-    show: false
+    show: false,
+    keyBoardHeight: 0
   },
   onLoad: function (option) {
     const page = this
@@ -171,6 +172,17 @@ Page({
     }
     this.setData({
       users: users
+    })
+  },
+  focusKeyBoardHeight(e) {
+    let height = e.detail.height
+    this.setData({
+      keyBoardHeight: height
+    })
+  },
+  blurKeyBoardHeight(e) {
+    this.setData({
+      keyBoardHeight: 0
     })
   }
 });

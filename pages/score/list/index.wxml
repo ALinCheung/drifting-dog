@@ -37,7 +37,7 @@
 
     <view class="fadeIn" wx:if="{{show}}">
       <view class="weui-mask" bindtap="closeAddScoreDialog"></view>
-      <view class="weui-half-screen-dialog">
+      <view class="weui-half-screen-dialog" style="padding-bottom:{{keyBoardHeight}}px">
         <view class="weui-half-screen-dialog__hd">
           <view class="weui-half-screen-dialog__hd__side" bindtap="closeAddScoreDialog">
             <a class="weui-icon-btn">关闭<i class="weui-icon-close-thin"></i></a>
@@ -56,7 +56,7 @@
           <view class="weui-flex">
             <view class="weui-flex__item" wx:key="userId" wx:for="{{score}}">
               <view class="placeholder">
-                <input type="number" id="score-add-{{index}}}" bindinput="checkAddScore" value="{{item.score}}" disabled="{{item.disable}}"/>
+                <input type="number" id="score-add-{{index}}}" bindinput="checkAddScore" value="{{item.score}}" disabled="{{item.disable}}" bindfocus="focusKeyBoardHeight" bindblur="blurKeyBoardHeight"/>
               </view>
             </view>
           </view>
