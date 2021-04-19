@@ -157,7 +157,7 @@ Page({
       })
       // 关闭弹窗
       this.closeAddScoreDialog()
-      // 收起键盘高度
+      // 收起键盘
       this.closeKeyBoard()
     } else {
       wx.showModal({
@@ -186,5 +186,12 @@ Page({
     this.setData({
       keyBoardHeight: 0
     })
+  },
+  checkKeyboard(e) {
+    let height = e.detail.height
+    if (height == 0) {
+      // 收起键盘
+      this.closeKeyBoard()
+    }
   }
 });
