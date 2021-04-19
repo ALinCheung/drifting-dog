@@ -26,14 +26,12 @@ Page({
 
     this.setData({
       icon: base64.icon20,
-      slideButtons: [
-        {
-          type: 'warn',
-          text: '警示',
-          extClass: 'slideview-icon',
-          src: '/pages/images/icon_del.svg', // icon的路径
-        }
-      ]
+      slideButtons: [{
+        type: 'warn',
+        text: '警示',
+        extClass: 'slideview-icon',
+        src: '/pages/images/icon_del.svg', // icon的路径
+      }]
     })
   },
   slideButtonTap(e) {
@@ -41,14 +39,14 @@ Page({
     let users = this.data.users;
     let scores = this.data.scores;
     // 统计总数
-    for(let i=0;i<users.length;i++) {
-      for(let j=0;j<scores[index].length;j++) {
+    for (let i = 0; i < users.length; i++) {
+      for (let j = 0; j < scores[index].length; j++) {
         if (users[i].id == scores[index][j].userId) {
           users[i].score -= parseInt(scores[index][j].score);
         }
       }
     }
-    scores.splice(index,1);
+    scores.splice(index, 1);
     this.setData({
       users: users,
       scores: scores
@@ -57,15 +55,17 @@ Page({
   openAddScoreDialog() {
     let score = []
     let users = this.data.users;
-    for(let i=0;i<users.length;i++) {
+    for (let i = 0; i < users.length; i++) {
       score.push(new Score(users[i].id, users[i].name, null, false))
     }
     this.setData({
-        show: true,
-        score: score
+      show: true,
+      score: score
     })
   },
-  closeAddScoreDialog: function() {
+  closeAddScoreDialog: function () {
+    // 收起键盘高度
+    this.closeKeyBoard()
     this.setData({
       show: false
     });
@@ -89,12 +89,12 @@ Page({
     // 检查输入数据个数
     let score = this.data.score;
     let size = 0;
-    for(let i=0;i<score.length;i++) {
+    for (let i = 0; i < score.length; i++) {
       if (score[i].score != null && score[i].score != '') {
         size++;
       }
     }
-    return size == score.length-1;
+    return size == score.length - 1;
   },
   checkAddScore(e) {
     let score = this.data.score;
@@ -103,7 +103,7 @@ Page({
     let scoreValue = e.detail.value;
     score[index].score = scoreValue;
     if (this.checkScore()) {
-      for(let i=0;i<score.length;i++) {
+      for (let i = 0; i < score.length; i++) {
         if (score[i].score == null || score[i].score == '') {
           score[i].disable = true;
         }
@@ -122,7 +122,7 @@ Page({
     if (this.checkScore()) {
       // 添加每局信息
       let total = 0
-      for(let i=0;i<score.length;i++) {
+      for (let i = 0; i < score.length; i++) {
         if (score[i].score != null && score[i].score != '') {
           // 判断数字
           if (!reg.test(score[i].score)) {
@@ -136,15 +136,15 @@ Page({
           score[i].score = -score[i].score;
         }
       }
-      for(let i=0;i<score.length;i++) {
+      for (let i = 0; i < score.length; i++) {
         if (score[i].score == null || score[i].score == '') {
           score[i].score = total;
         }
       }
       scores.unshift(score)
       // 统计总数
-      for(let i=0;i<users.length;i++) {
-        for(let j=0;j<score.length;j++) {
+      for (let i = 0; i < users.length; i++) {
+        for (let j = 0; j < score.length; j++) {
           if (users[i].id == score[j].userId) {
             users[i].score += parseInt(score[j].score);
           }
@@ -157,17 +157,19 @@ Page({
       })
       // 关闭弹窗
       this.closeAddScoreDialog()
+      // 收起键盘高度
+      this.closeKeyBoard()
     } else {
       wx.showModal({
         title: '提示',
-        content: '输入框至少填写'+(score.length-1)+'个'
+        content: '输入框至少填写' + (score.length - 1) + '个'
       })
       return
     }
   },
-  resetUsersScore(){
+  resetUsersScore() {
     let users = this.data.users;
-    for(let i=0;i<users.length;i++) {
+    for (let i = 0; i < users.length; i++) {
       users[i].score = 0;
     }
     this.setData({
@@ -180,7 +182,7 @@ Page({
       keyBoardHeight: height
     })
   },
-  blurKeyBoardHeight(e) {
+  closeKeyBoard(e) {
     this.setData({
       keyBoardHeight: 0
     })
