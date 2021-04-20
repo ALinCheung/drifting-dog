@@ -1,0 +1,2 @@
+<!--pages/scan-code/scan-code.wxml-->
+<text>{{scanCodeInfo.result}}</text>

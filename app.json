@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/user/user",
     "pages/score/index",
-    "pages/score/list/index"
+    "pages/score/list/index",
+    "pages/scan-code/scan-code"
   ],
   "window": {
     "navigationBarBackgroundColor": "#ffffff",
@@ -11,17 +12,20 @@
     "navigationBarTitleText": "漂流犬"
   },
   "tabBar": {
-    "list": [{
-      "text": "应用",
-      "pagePath": "pages/index/index",
-      "iconPath": "/pages/images/icon_nav_form.png",
-      "selectedIconPath": "/pages/images/icon_nav_form.png"
-    },{
-      "text": "用户",
-      "pagePath": "pages/user/user",
-      "iconPath": "/pages/images/icon_nav_form.png",
-      "selectedIconPath": "/pages/images/icon_nav_form.png"
-    }]
+    "list": [
+      {
+        "text": "应用",
+        "pagePath": "pages/index/index",
+        "iconPath": "/pages/images/icon_nav_form.png",
+        "selectedIconPath": "/pages/images/icon_nav_form.png"
+      },
+      {
+        "text": "用户",
+        "pagePath": "pages/user/user",
+        "iconPath": "/pages/images/icon_nav_form.png",
+        "selectedIconPath": "/pages/images/icon_nav_form.png"
+      }
+    ]
   },
   "useExtendedLib": {
     "weui": true
