@@ -7,7 +7,13 @@ function User(id, name, score) {
 Page({
   data: {
     usersCount: 4,
-    users: []
+    users: [
+      // 测试用户
+      // {id:1,name:"a",score:0},
+      // {id:2,name:"b",score:0},
+      // {id:3,name:"c",score:0},
+      // {id:4,name:"d",score:0},
+    ]
   },
   onLoad(e) {
     // 初始化用户

@@ -64,7 +64,7 @@ Page({
     })
   },
   closeAddScoreDialog: function () {
-    // 收起键盘高度
+    // 收起键盘
     this.closeKeyBoard()
     this.setData({
       show: false

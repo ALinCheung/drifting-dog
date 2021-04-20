@@ -29,6 +29,7 @@ nbdist/
 
 ### sonar ###
 .scannerwork
+
 ### node js###
 .cache
 .vscode

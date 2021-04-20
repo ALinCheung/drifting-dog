@@ -56,7 +56,8 @@
           <view class="weui-flex">
             <view class="weui-flex__item" wx:key="userId" wx:for="{{score}}">
               <view class="placeholder">
-                <input type="number" id="score-add-{{index}}}" bindinput="checkAddScore" value="{{item.score}}" disabled="{{item.disable}}" adjust-position="{{false}}" hold-keyboard="{{true}}" focus="{{index==0?true:false}}" bindfocus="focusKeyBoardHeight" bindkeyboardheightchange="checkKeyboard"/>
+                <input type="number" id="score-add-{{index}}}" bindinput="checkAddScore" value="{{item.score}}" disabled="{{item.disable}}" adjust-position="{{false}}" hold-keyboard="{{true}}" focus="{{true}}" bindfocus="focusKeyBoardHeight" bindkeyboardheightchange="checkKeyboard" wx:if="{{index==0}}"/>
+                <input type="number" id="score-add-{{index}}}" bindinput="checkAddScore" value="{{item.score}}" disabled="{{item.disable}}" adjust-position="{{false}}" hold-keyboard="{{true}}" bindfocus="focusKeyBoardHeight" bindkeyboardheightchange="checkKeyboard" wx:else/>
               </view>
             </view>
           </view>
