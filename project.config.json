@@ -34,7 +34,7 @@
   },
   "compileType": "miniprogram",
   "libVersion": "2.16.0",
-  "appid": "wx7e11b719eb08af3c",
+  "appid": "",
   "projectname": "drifting-dog",
   "debugOptions": {
     "hidedInDevtools": []

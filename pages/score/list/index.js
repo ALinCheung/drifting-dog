@@ -102,16 +102,18 @@ Page({
     let index = parseInt(e.currentTarget.id.replace("score-add-", ""));
     let scoreValue = e.detail.value;
     score[index].score = scoreValue;
-    if (this.checkScore()) {
-      for (let i = 0; i < score.length; i++) {
+    for (let i = 0; i < score.length; i++) {
+      if (this.checkScore()) {
         if (score[i].score == null || score[i].score == '') {
           score[i].disable = true;
         }
+      } else {
+        score[i].disable = false;
       }
-      this.setData({
-        score: score
-      })
     }
+    this.setData({
+      score: score
+    })
   },
   addScore(e) {
     let users = this.data.users;
