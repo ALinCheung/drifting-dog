@@ -23,7 +23,6 @@ Page({
     let scoreInfo;
     eventChannel.on('scoreInfo', function (data) {
       scoreInfo = data
-      console.log(scoreInfo)
       page.setData({
         time: scoreInfo.time,
         users: scoreInfo.users,

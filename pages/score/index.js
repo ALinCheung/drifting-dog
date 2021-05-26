@@ -126,6 +126,17 @@ Page({
     // 跳转至列表
     this.navigateToList(scoreStorage[e.currentTarget.id])
   },
+  slideButtonTap(e) {
+    let scoreStorage = wx.getStorageSync('scoreStorage')
+    scoreStorage.splice(e.currentTarget.id, 1)
+    wx.setStorage({
+      data: scoreStorage,
+      key: 'scoreStorage',
+    })
+    this.setData({
+      scoresHistory: scoreStorage
+    })
+  },
   navigateToList(scoreInfo) {
     // 跳转至列表
     wx.navigateTo({
