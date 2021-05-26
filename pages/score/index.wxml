@@ -18,3 +18,11 @@
 <view class="weui-cell">
 	<button class="weui-btn weui-btn_primary" bindtap='submit' style='width:100%;'>开始计算</button>
 </view>
+
+<view wx:key="id" wx:for="{{scoresHistory}}">
+	<mp-slideview buttons="{{slideButtons}}" icon="{{true}}" bindtap="submitHistory" bindbuttontap="slideButtonTap" id="{{index}}">
+		<view class="weui-cell">
+			<view class="placeholder">对局时间:{{item.time}}</view>
+		</view>
+	</mp-slideview>
+</view>

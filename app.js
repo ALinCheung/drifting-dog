@@ -1,4 +1,6 @@
 require('./libs/Mixins.js');
+require('./libs/DateUtils.js');
+require('./libs/WatchUtils.js');
 
 const themeListeners = [];
 

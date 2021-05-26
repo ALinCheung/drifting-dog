@@ -1,3 +1,4 @@
+const { setWatcher } = require("../../../libs/WatchUtils");
 var base64 = require("../../images/base64");
 
 function Score(userId, userName, score, disable) {
@@ -9,6 +10,7 @@ function Score(userId, userName, score, disable) {
 
 Page({
   data: {
+    time: null,
     users: [],
     score: [],
     scores: [],
@@ -18,11 +20,19 @@ Page({
   onLoad: function (option) {
     const page = this
     const eventChannel = page.getOpenerEventChannel()
-    eventChannel.on('scoreUserList', function (data) {
+    let scoreInfo;
+    eventChannel.on('scoreInfo', function (data) {
+      scoreInfo = data
+      console.log(scoreInfo)
       page.setData({
-        users: data
+        time: scoreInfo.time,
+        users: scoreInfo.users,
+        scores: scoreInfo.scores
       })
     })
+
+    // 设置监听
+    setWatcher(this)
 
     this.setData({
       icon: base64.icon20,
@@ -33,6 +43,38 @@ Page({
         src: '/pages/images/icon_del.svg', // icon的路径
       }]
     })
+  },
+  watch: {
+    'scores': function(scores) {
+      let time = this.data.time
+      // 获取本地缓存
+      let scoreStorage = wx.getStorageSync('scoreStorage')
+      if (scoreStorage == '') {
+        scoreStorage = [];
+      }
+      if (scores.length > 0) {
+        let scoreInfo = {
+          time: time,
+          users: this.data.users,
+          scores: scores
+        }
+        // 如果缓存超过20个则删掉最后一个
+        if (scoreStorage.length >= 20) {
+          scoreStorage.pop();
+        }
+        scoreStorage.unshift(scoreInfo)
+      } else {
+        for (let i = 0; i < scoreStorage.length; i++) {
+          if (scoreStorage[i].time == time) {
+            scoreStorage.splice(i, 1);
+          }
+        }
+      }
+      wx.setStorage({
+        data: scoreStorage,
+        key: 'scoreStorage',
+      })
+    }
   },
   slideButtonTap(e) {
     let index = e.target.id;

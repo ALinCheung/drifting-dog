@@ -1,3 +1,5 @@
+var base64 = require("../images/base64");
+
 function User(id, name, score) {
   this.id = id;
   this.name = name;
@@ -6,6 +8,7 @@ function User(id, name, score) {
 
 Page({
   data: {
+    time: new Date().format("yyyy-MM-dd hh:mm:ss"),
     usersCount: 4,
     users: [
       // 测试用户
@@ -13,7 +16,8 @@ Page({
       // {id:2,name:"b",score:0},
       // {id:3,name:"c",score:0},
       // {id:4,name:"d",score:0},
-    ]
+    ],
+    scoresHistory:[]
   },
   onLoad(e) {
     // 初始化用户
@@ -25,6 +29,24 @@ Page({
         this.addUser()
       }
     }
+    // 获取本地缓存
+    let scoreStorage = wx.getStorageSync('scoreStorage')
+    if (scoreStorage == '') {
+      scoreStorage = [];
+    }
+    this.setData({
+      scoresHistory: scoreStorage
+    })
+
+    this.setData({
+      icon: base64.icon20,
+      slideButtons: [{
+        type: 'warn',
+        text: '警示',
+        extClass: 'slideview-icon',
+        src: '/pages/images/icon_del.svg', // icon的路径
+      }]
+    })
   },
   addUser() {
     let users = this.data.users;
@@ -54,6 +76,7 @@ Page({
   submit(e) {
     let users = this.data.users;
     let usersCount = this.data.usersCount;
+    // 验证用户数量
     if (users.length > usersCount) {
       let title = '用户数不能超过' + usersCount + '个'
       wx.showModal({
@@ -63,6 +86,8 @@ Page({
       })
       return
     }
+    let userNames = [];
+    // 验证用户名是否为空
     for(const user of users) {
       if (user.id === undefined 
         || user.id == null 
@@ -76,12 +101,38 @@ Page({
         })
         return
       }
+      userNames.push(user.name);
     }
+    // 验证重复用户名
+    userNames = Array.from(new Set(userNames))
+    if (userNames.length != users.length) {
+      wx.showModal({
+        title: '提示',
+        content: '不能有重复的用户名',
+        success: function (res) {}
+      })
+      return
+    }
+    let scoreInfo = {
+      time: this.data.time,
+      users: users,
+      scores: []
+    }
+    // 跳转至列表
+    this.navigateToList(scoreInfo)
+  },
+  submitHistory(e) {
+    let scoreStorage = wx.getStorageSync('scoreStorage')
+    // 跳转至列表
+    this.navigateToList(scoreStorage[e.currentTarget.id])
+  },
+  navigateToList(scoreInfo) {
+    // 跳转至列表
     wx.navigateTo({
       url: './list/index',
       success(res){
         // 通过eventChannel向被打开页面传送数据
-        res.eventChannel.emit('scoreUserList', users)
+        res.eventChannel.emit('scoreInfo', scoreInfo)
       }
     })
   }
