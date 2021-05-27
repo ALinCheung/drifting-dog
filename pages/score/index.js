@@ -12,10 +12,10 @@ Page({
     usersCount: 4,
     users: [
       // 测试用户
-      // {id:1,name:"a",score:0},
-      // {id:2,name:"b",score:0},
-      // {id:3,name:"c",score:0},
-      // {id:4,name:"d",score:0},
+      {id:1,name:"a",score:0},
+      {id:2,name:"b",score:0},
+      {id:3,name:"c",score:0},
+      {id:4,name:"d",score:0},
     ],
     scoresHistory:[]
   },
@@ -30,13 +30,7 @@ Page({
       }
     }
     // 获取本地缓存
-    let scoreStorage = wx.getStorageSync('scoreStorage')
-    if (scoreStorage == '') {
-      scoreStorage = [];
-    }
-    this.setData({
-      scoresHistory: scoreStorage
-    })
+    this.getLocalCache()
 
     this.setData({
       icon: base64.icon20,
@@ -46,6 +40,19 @@ Page({
         extClass: 'slideview-icon',
         src: '/pages/images/icon_del.svg', // icon的路径
       }]
+    })
+  },
+  onShow() {
+    this.getLocalCache()
+  },
+  getLocalCache() {
+    // 获取本地缓存
+    let scoreStorage = wx.getStorageSync('scoreStorage')
+    if (scoreStorage == '') {
+      scoreStorage = [];
+    }
+    this.setData({
+      scoresHistory: scoreStorage
     })
   },
   addUser() {
@@ -114,7 +121,7 @@ Page({
       return
     }
     let scoreInfo = {
-      time: this.data.time,
+      time: new Date().format("yyyy-MM-dd hh:mm:ss"),
       users: users,
       scores: []
     }

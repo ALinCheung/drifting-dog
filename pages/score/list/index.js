@@ -46,27 +46,49 @@ Page({
   watch: {
     'scores': function(scores) {
       let time = this.data.time
+      let users = this.data.users
       // 获取本地缓存
       let scoreStorage = wx.getStorageSync('scoreStorage')
       if (scoreStorage == '') {
         scoreStorage = [];
       }
+      let scoreInfo = {
+        time: time,
+        users: users,
+        scores: scores
+      }
       if (scores.length > 0) {
-        let scoreInfo = {
-          time: time,
-          users: this.data.users,
-          scores: scores
+        let isExists = false;
+        for (let i = 0; i < scoreStorage.length; i++) {
+          if (scoreStorage[i].time == time) {
+            scoreStorage[i] = scoreInfo
+            isExists = true;
+          }
         }
+        if (!isExists) {
+          scoreStorage.unshift(scoreInfo)
+        }
+      } else {
+        // 清空记录
+        let scoreStorageTemp = []
+        for (let i = 0; i < scoreStorage.length; i++) {
+          if (scoreStorage[i].time != time) {
+            scoreStorageTemp.push(scoreStorage[i])
+          }
+        }
+        scoreStorage = scoreStorageTemp
+        // 创建新对局
+        time = new Date().format("yyyy-MM-dd hh:mm:ss")
+        for (let i = 0; i < users; i++) {
+          users[i].score = 0
+        }
+        this.setData({
+          time: time,
+          users: users
+        })
         // 如果缓存超过20个则删掉最后一个
         if (scoreStorage.length >= 20) {
           scoreStorage.pop();
-        }
-        scoreStorage.unshift(scoreInfo)
-      } else {
-        for (let i = 0; i < scoreStorage.length; i++) {
-          if (scoreStorage[i].time == time) {
-            scoreStorage.splice(i, 1);
-          }
         }
       }
       wx.setStorage({
