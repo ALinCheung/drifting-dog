@@ -12,10 +12,10 @@ Page({
     usersCount: 4,
     users: [
       // 测试用户
-      {id:1,name:"a",score:0},
-      {id:2,name:"b",score:0},
-      {id:3,name:"c",score:0},
-      {id:4,name:"d",score:0},
+      // {id:1,name:"a",score:0},
+      // {id:2,name:"b",score:0},
+      // {id:3,name:"c",score:0},
+      // {id:4,name:"d",score:0},
     ],
     scoresHistory:[]
   },
