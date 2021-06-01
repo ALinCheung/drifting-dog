@@ -47,9 +47,6 @@ App({
 					})
 					updateManager.onUpdateFailed(function() {
 						// 新版本下载失败
-						wx.showToast({
-							title: '新版本下载失败',
-						})
 					})
 				}
 			})

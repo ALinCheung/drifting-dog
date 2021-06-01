@@ -1,4 +1,6 @@
-const { setWatcher } = require("../../../libs/WatchUtils");
+const {
+  setWatcher
+} = require("../../../libs/WatchUtils");
 var base64 = require("../../images/base64");
 
 function Score(userId, userName, score, disable) {
@@ -19,16 +21,28 @@ Page({
   },
   onLoad: function (option) {
     const page = this
+    // 页面参数传递
     const eventChannel = page.getOpenerEventChannel()
     let scoreInfo;
-    eventChannel.on('scoreInfo', function (data) {
-      scoreInfo = data
+    if (JSON.stringify(eventChannel) != "{}") {
+      eventChannel.on('scoreInfo', function (data) {
+        scoreInfo = data
+        page.setData({
+          time: scoreInfo.time,
+          users: scoreInfo.users,
+          scores: scoreInfo.scores
+        })
+      })
+    }
+    // 页面转发
+    const options = page.options;
+    if (JSON.stringify(options) != "{}" && options.data) {
+      scoreInfo = JSON.parse(options.data)
       page.setData({
         time: scoreInfo.time,
-        users: scoreInfo.users,
-        scores: scoreInfo.scores
+        users: scoreInfo.users
       })
-    })
+    }
 
     // 设置监听
     setWatcher(this)
@@ -43,8 +57,48 @@ Page({
       }]
     })
   },
+  onShareAppMessage(option) {
+    let scoreInfo = {
+      time: this.data.time,
+      users: this.data.users
+    }
+
+    // 设置菜单中的转发按钮触发转发事件时的转发内容
+    var shareObj = {
+      title: "分数计算详情", // 默认是小程序的名称(可以写slogan等)
+      path: '/pages/score/list/index?data='+JSON.stringify(scoreInfo), // 默认是当前页面，必须是以‘/’开头的完整路径
+      imageUrl: '', //自定义图片路径，可以是本地文件路径、代码包文件路径或者网络图片路径，支持PNG及JPG，不传入imageUrl 则使用默认截图。显示图片长宽比是 5:4
+      success: function (res) {
+        console.log(res)
+        // 转发成功之后的回调
+        if (res.errMsg == 'shareAppMessage:ok') {}
+      },
+      fail: function (res) {
+        console.log(res)
+        // 转发失败之后的回调
+        if (res.errMsg == 'shareAppMessage:fail cancel') {
+          // 用户取消转发
+        } else if (res.errMsg == 'shareAppMessage:fail') {
+          // 转发失败，其中 detail message 为详细失败信息
+        }
+      },
+      complete: function(res) {
+        console.log(res)
+        // 转发结束之后的回调（转发成不成功都会执行）
+      },
+    }
+    // 来自页面内的按钮的转发
+    if (option.from == 'button') {
+      // var eData = options.target.dataset;
+      // console.log(eData.name); // shareBtn
+      // 此处可以修改 shareObj 中的内容
+      // shareObj.path = '/pages/';
+    }
+    // 返回shareObj
+    return shareObj;
+  },
   watch: {
-    'scores': function(scores) {
+    'scores': function (scores) {
       let time = this.data.time
       let users = this.data.users
       // 获取本地缓存
