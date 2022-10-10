@@ -35,3 +35,7 @@ nbdist/
 .vscode
 node_modules
 yarn.lock
+
+### wx ###
+project.config.json
+project.private.config.json

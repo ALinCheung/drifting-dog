@@ -27,11 +27,12 @@ Page({
             }
           },
           fail (res) {
-            wx.showToast({
-              title: '扫码失败',
-              icon: 'error',
-              duration: 2000
-            })
+            console.log('扫码失败', res)
+            // wx.showToast({
+            //   title: '扫码失败',
+            //   icon: 'error',
+            //   duration: 2000
+            // })
           }
         })
       }
