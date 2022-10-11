@@ -34,7 +34,7 @@ Page({
   },
   login() {
     wx.login({
-      success (res) {
+      success(res) {
         if (res.code) {
           //发起网络请求
           // wx.request({
@@ -48,6 +48,12 @@ Page({
           console.log('登录失败！', res.errMsg)
         }
       }
+    })
+  },
+  logout() {
+    this.setData({
+      userInfo: null,
+      hasUserInfo: false
     })
   }
 });
