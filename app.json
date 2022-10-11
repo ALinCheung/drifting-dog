@@ -4,10 +4,11 @@
     "pages/user/user",
     "pages/score/index",
     "pages/score/list/index",
-    "pages/scan-code/scan-code"
+    "pages/scan-code/scan-code",
+    "pages/map/map"
   ],
   "window": {
-    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarBackgroundColor": "#f0f0f0",
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "漂流犬"
   },
@@ -29,6 +30,11 @@
   },
   "useExtendedLib": {
     "weui": true
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
   },
   "sitemapLocation": "sitemap.json"
 }

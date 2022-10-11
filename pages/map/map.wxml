@@ -1,0 +1,3 @@
+<view class="page" data-weui-theme="{{theme}}">
+  <map></map>
+</view>

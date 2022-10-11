@@ -2,6 +2,7 @@
   <view class="page__hd">
     <view class="page__title">应用列表</view>
     <view class="page__desc">一个个人学习小程序</view>
+    <view class="page__desc">当前时间: {{time}}</view>
   </view>
   <view class="weui-grids">
     <a class="weui-grid" wx:for="{{appList}}" wx:key="id" id="app-{{index}}" bindtap="tap">
